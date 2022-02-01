@@ -9,7 +9,7 @@ import requests
 # az apihoz szükséges kód és weboldal
 
 headers = {
-    "api_key": "cb5e9fc9d6dc98c1c07b5da8c10eff47",
+    "api_key": "MY_API",
     "query": "Inception"
 }
 website = "https://api.themoviedb.org/3/search/movie"
@@ -105,7 +105,7 @@ def add():
     if request.method == "POST":
         title = form.movie_title.data
         headers_api = {
-            "api_key": "cb5e9fc9d6dc98c1c07b5da8c10eff47",
+            "api_key": "MY_API",
             "query": title
         }
         response = requests.get(url="https://api.themoviedb.org/3/search/movie?", params=headers_api)
@@ -124,7 +124,7 @@ def add():
 @app.route('/add_movie/<string:id>', methods=["POST", "GET"])
 def add_movie(id):
     headers_api = {
-        "api_key": "cb5e9fc9d6dc98c1c07b5da8c10eff47",
+        "api_key": "MY_API",
         "language": "hu"
     }
     response = requests.get(url=f"https://api.themoviedb.org/3/movie/{id}?", params=headers_api)
