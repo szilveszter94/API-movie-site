@@ -1,0 +1,58 @@
+<!--bootstrap html importalas-->
+{% extends 'bootstrap/base.html' %}
+<!--a stilus beagyazasa a betutipus es a css belinkelese-->
+{% block styles %}
+  {{ super() }}
+    <link href="https://fonts.googleapis.com/css2?family=Pushster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Kedvenc filmjeim{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1 class="heading">Legjobb filmek</h1>
+  <p class="description">Ezek az én kedvenc filmjeim.</p>
+<!--    az adatbazisbol lekerdezi a film adatlapjat es egy kartyaba beilleszti a szoveget es a kepet-->
+<!--    ket gombot jelenit meg az sql id vel egyutt, ha rakattintunk az id alapjan szerkeszto oldalra fog atvinni vagy a-->
+<!--    torlo oldalra-->
+{% for i in new_movie %}
+  <div class="card" >
+
+    <div class="front" style="background-image: url({{i.img_url}});">
+        <p class="large">{{i.ranking}}</p>
+    </div>
+    <div class="back">
+      <div class="container">
+    <div class="title">{{ i.title }}<span class="release_date"> ({{i.year}})</span></div>
+        <div class="rating">
+            <label>{{i.rating}}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+          <p class="review">"{{i.review}}"</p>
+        <p class="overview">
+            {{i.description}}
+        </p>
+
+      </div>
+        <a href="{{ url_for('edit', id=i.id)}}" style="position:absolute; top:85%; left:20%;"  class="button">Szerkesztés</a>
+        <a href="{{ url_for('delete', id=i.id)}}" style="position:absolute; top:85%; right:20%;" class="button delete-button">Törlés</a>
+
+    </div>
+
+  </div>
+    {% endfor %}
+
+</div>
+<!--ez a gomb az uj film hozzaadasa oldalra fog atiranyitani-->
+
+<div style="padding-bottom:5rem;" class="container text-center add">
+<a href="{{ url_for('add')}}" class="button button-text">Film hozzáadása</a>
+</div>
+
+{% endblock %}

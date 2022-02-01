@@ -1,0 +1,24 @@
+<!--bootstrap form importalas es a bootstrap css hozzaadas-->
+
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+<!--a stilus beagyazasa a betutipus es a css belinkelese-->
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Szerkesztés{% endblock %}
+<!--lekerdezi a film cimet es kiiraja cimkent-->
+{% block content %}
+<div class="content">
+  <h1 class="heading">{{movie.title}}</h1>
+    <p style="font-size:1rem; font-weight:normal;" class="description">Értékelés szerkesztése</p>
+<!--ez a form lekerdezi tolunk az uj ertekelest es leirast-->
+      {{ wtf.quick_form(form, id="quick_form", extra_classes="quick_form_class", novalidate=True) }}
+
+</div>
+
+{% endblock %}

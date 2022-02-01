@@ -1,0 +1,38 @@
+<!--bootstrap form importalas es a bootstrap css hozzaadas-->
+
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!--a stilus beagyazasa a betutipus es a css belinkelese-->
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+<!--az oldal cime-->
+
+{% block title %}Film hozzáadása{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Film hozzáadása</h1>
+<!--    ha a post aktiv, akkor az oldalon a filmek listaja jelenik meg az idvel egyutt, ha rakattintunk akkor az add_movie-->
+<!--    oldalra fog atiranyitani-->
+    {% if post == True %}
+
+    <ul>
+        {% for i in result %}
+  <li class="content" style="font-size:1.5rem; font-weight:bold"><a href="{{ url_for('add_movie', id=i['id'])}}">{{i["original_title"]}} - {{i["release_date"]}}</a></li>
+        {% endfor %}
+    </ul>
+<!--    ha nem a post aktiv akkor a form jelenik meg ami lekerdezi tolunk a film cimet-->
+<!--    amint rakattintunk a gombra, aktiv lesz a post-->
+
+    {% else %}
+    {{ wtf.quick_form(form, id="quick_form", extra_classes="quick_form_class", novalidate=True) }}
+    {% endif %}
+</div>
+{% endblock %}
